@@ -13,13 +13,11 @@ let countryToSearch = '';
 
 inputEl.addEventListener(
   'input',
-  debounce(() => {
-    onSearch();
-  }, 500),
+  debounce(onSearch, 500)
 );
 
 function onSearch() {
-  countryToSearch = inputEl.value;
+  countryToSearch = inputEl.value.trim();
   console.log(countryToSearch);
 
   if (!countryToSearch) {
@@ -33,18 +31,15 @@ function onSearch() {
 }
 
 function checkingNumberOfCountries(countries) {
+  clearMarkup();
   if (countries.length > 10) {
-    clearMarkup();
-    tooManyCountries();
+      tooManyCountries();
   } else if (countries.length <= 10 && countries.length > 1) {
-    clearMarkup();
-    renderMarkup(listOfContriesTpl, countries);
+     renderMarkup(listOfContriesTpl, countries);
   } else if (countries.length === 1) {
-    clearMarkup();
-    renderMarkup(countryCardTpl, countries[0]);
+     renderMarkup(countryCardTpl, countries[0]);
   } else {
-    clearMarkup();
-    noResult();
+      noResult();
   }
 }
 
